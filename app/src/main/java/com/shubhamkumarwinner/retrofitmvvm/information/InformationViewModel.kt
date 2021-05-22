@@ -5,10 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shubhamkumarwinner.retrofitmvvm.network.User
-import com.shubhamkumarwinner.retrofitmvvm.network.UsersApi
+import com.shubhamkumarwinner.retrofitmvvm.network.UserApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InformationViewModel : ViewModel() {
+@HiltViewModel
+class InformationViewModel @Inject constructor(
+    private val api: UserApiService
+): ViewModel() {
     private val _status = MutableLiveData<String>()
     // The external immutable LiveData for the request status String
     val status: LiveData<String>
@@ -30,7 +35,7 @@ class InformationViewModel : ViewModel() {
     private fun getUserDetail() {
         viewModelScope.launch {
             try {
-                _details.value = UsersApi.retrofitService.getUsers()
+                _details.value = api.getUsers()
                 _status.value = "Number of user is ${_details.value!!.size}"
             }catch (e: Exception){
                 _status.value = "Failure by: ${e.message}"
