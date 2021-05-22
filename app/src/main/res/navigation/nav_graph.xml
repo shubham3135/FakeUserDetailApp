@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/informationFragment">
+
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.shubhamkumarwinner.retrofitmvvm.information.InformationFragment"
+        android:label="information_fragment"
+        tools:layout="@layout/information_fragment" >
+        <action
+            android:id="@+id/action_informationFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.shubhamkumarwinner.retrofitmvvm.detail.DetailFragment"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="selectedUser"
+            app:argType="com.shubhamkumarwinner.retrofitmvvm.network.User"
+            />
+    </fragment>
+</navigation>
